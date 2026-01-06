@@ -1,5 +1,4 @@
-﻿using AP_project.Engine;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,14 +10,21 @@ namespace AP_project
 {
     public partial class GameForm : Form
     {
-        private GameEngine engine;
-        private Scene gameScene;
+        private Engine.GameEngine engine;
+        private Game.GameScene gameScene;
         private BufferedGraphicsContext context;
         private BufferedGraphics buffer;
 
         public GameForm()
         {
             InitializeComponent();
+
+            // Setup form
+            this.Text = "Asteroids";
+            this.Width = 800;
+            this.Height = 600;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
 
             // Setup double buffering
             this.DoubleBuffered = true;
@@ -32,13 +38,16 @@ namespace AP_project
             buffer = context.Allocate(this.CreateGraphics(), this.ClientRectangle);
 
             // Initialize engine
-            engine = new GameEngine();
-            gameScene = new Scene(this);
+            engine = new Engine.GameEngine();
+            gameScene = new Game.GameScene(this, this.ClientRectangle);
             engine.CurrentScene = gameScene;
 
             // Hook up input
-            this.KeyDown += (s, e) => InputManager.Instance.SetKeyDown(e.KeyCode);
-            this.KeyUp += (s, e) => InputManager.Instance.SetKeyUp(e.KeyCode);
+            this.KeyDown += (s, e) => Engine.InputManager.Instance.SetKeyDown(e.KeyCode);
+            this.KeyUp += (s, e) => Engine.InputManager.Instance.SetKeyUp(e.KeyCode);
+
+            // Prevent arrow keys from triggering form navigation
+            this.KeyPreview = true;
 
             engine.Start();
         }
@@ -48,6 +57,7 @@ namespace AP_project
             // Draw to buffer
             Graphics g = buffer.Graphics;
             g.Clear(Color.Black);
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
             gameScene.Draw(g);
 
@@ -61,6 +71,11 @@ namespace AP_project
             buffer?.Dispose();
             context?.Dispose();
             base.OnFormClosing(e);
+        }
+
+        private void GameForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

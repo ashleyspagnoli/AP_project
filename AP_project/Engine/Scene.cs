@@ -24,7 +24,7 @@ namespace AP_project.Engine
             entity.IsActive = false;
         }
 
-        public void Update(double deltaTime)
+        public virtual void Update(double deltaTime)
         {
             // Update all entities
             foreach (var entity in entities)
@@ -52,13 +52,18 @@ namespace AP_project.Engine
             }
         }
 
-        public void Draw(Graphics g)
+        public virtual void Draw(Graphics g)
         {
             foreach (var entity in entities)
             {
                 if (entity.IsActive)
                     entity.Draw(g);
             }
+        }
+
+        public void ClearAllEntities()
+        {
+            entities.Clear();
         }
     }
 }
