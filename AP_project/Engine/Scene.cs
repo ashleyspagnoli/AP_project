@@ -7,6 +7,7 @@ namespace AP_project.Engine
     public class Scene
     {
         private List<Entity> entities = new List<Entity>();
+        private List<Entity> entitiesToAdd = new List<Entity>();
         private Control renderTarget;
 
         public Scene(Control renderTarget)
@@ -26,17 +27,14 @@ namespace AP_project.Engine
 
         public virtual void Update(double deltaTime)
         {
-            // Update all entities
-            foreach (var entity in entities)
+            for (int i = 0; i < entities.Count; i++)
             {
-                if (entity.IsActive)
-                    entity.Update(deltaTime);
+                if (entities[i].IsActive)
+                    entities[i].Update(deltaTime);
             }
 
-            // Check collisions
             CollisionManager.CheckCollisions(entities);
 
-            // Remove inactive entities
             entities.RemoveAll(e => !e.IsActive);
         }
 
@@ -54,10 +52,10 @@ namespace AP_project.Engine
 
         public virtual void Draw(Graphics g)
         {
-            foreach (var entity in entities)
+            for (int i = 0; i < entities.Count; i++)
             {
-                if (entity.IsActive)
-                    entity.Draw(g);
+                if (entities[i].IsActive)
+                    entities[i].Draw(g);
             }
         }
 
