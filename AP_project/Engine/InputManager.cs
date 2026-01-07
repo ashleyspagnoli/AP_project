@@ -34,11 +34,6 @@ namespace AP_project.Engine
             return currentKeys.Contains(key);
         }
 
-        public bool IsKeyPressed(Keys key)
-        {
-            return currentKeys.Contains(key) && !previousKeys.Contains(key);
-        }
-
         public bool IsKeyReleased(Keys key)
         {
             return !currentKeys.Contains(key) && previousKeys.Contains(key);

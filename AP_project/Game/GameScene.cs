@@ -45,7 +45,7 @@ namespace AP_project.Game
             if (gameOver)
             {
                 // Check for restart
-                if (Engine.InputManager.Instance.IsKeyPressed(Keys.R))
+                if (Engine.InputManager.Instance.IsKeyDown(Keys.R))
                 {
                     RestartGame();
                 }
