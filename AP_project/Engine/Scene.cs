@@ -6,8 +6,8 @@ namespace AP_project.Engine
 {
     public class Scene
     {
-        private List<Entity> entities = new List<Entity>();
-        private List<Entity> entitiesToAdd = new List<Entity>();
+        protected List<Entity> entities = new List<Entity>();
+        protected List<Entity> entitiesToAdd = new List<Entity>();
         private Control renderTarget;
 
         public Scene(Control renderTarget)

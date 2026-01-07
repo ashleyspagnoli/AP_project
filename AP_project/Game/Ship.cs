@@ -105,9 +105,9 @@ namespace AP_project.Game
 
         public void OnCollide(Engine.Entity other)
         {
-            if (other is Asteroid)
+            if (other is Asteroid asteroid)
             {
-                gameScene.OnShipDestroyed();
+                gameScene.OnShipDestroyed(asteroid);
             }
         }
 
