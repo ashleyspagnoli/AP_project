@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace AP_project.Game
+﻿namespace AP_project.Game
 {
     public class Bullet : Engine.Entity, Engine.ICollidable
     {

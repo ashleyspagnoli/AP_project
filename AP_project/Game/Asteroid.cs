@@ -1,7 +1,4 @@
-﻿using System;
-using System.Drawing;
-
-namespace AP_project.Game
+﻿namespace AP_project.Game
 {
     public enum AsteroidSize
     {
