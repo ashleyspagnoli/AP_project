@@ -76,37 +76,39 @@ namespace AP_project.Game
             
             // Apply time scale to delta time for slow motion effect
             double scaledDeltaTime = deltaTime * TimeScale;
-            
+
             // Update all entities with scaled time
-            for (int i = 0; i < entities.Count; i++)
-            {
-                if (entities[i].IsActive)
+            lock (entityLock) {
+                for (int i = 0; i < entities.Count; i++)
                 {
-                    // Ship always updates at normal speed during respawn
-                    if (entities[i] is Ship)
+                    if (entities[i].IsActive)
                     {
-                        entities[i].Update(deltaTime);
-                    }
-                    else
-                    {
-                        entities[i].Update(scaledDeltaTime);
+                        // Ship always updates at normal speed during respawn
+                        if (entities[i] is Ship)
+                        {
+                            entities[i].Update(deltaTime);
+                        }
+                        else
+                        {
+                            entities[i].Update(scaledDeltaTime);
+                        }
                     }
                 }
+            
+                // Check collisions
+                Engine.CollisionManager.CheckCollisions(entities);
+            
+                // Remove inactive entities
+                entities.RemoveAll(e => !e.IsActive);
+            
+                // Add new entities that were spawned during this frame
+                if (entitiesToAdd.Count > 0)
+                {
+                    entities.AddRange(entitiesToAdd);
+                    entitiesToAdd.Clear();
+                }
             }
-            
-            // Check collisions
-            Engine.CollisionManager.CheckCollisions(entities);
-            
-            // Remove inactive entities
-            entities.RemoveAll(e => !e.IsActive);
-            
-            // Add new entities that were spawned during this frame
-            if (entitiesToAdd.Count > 0)
-            {
-                entities.AddRange(entitiesToAdd);
-                entitiesToAdd.Clear();
-            }
-            
+
             // Spawn new asteroids periodically (not during respawn)
             if (!isRespawning)
             {
@@ -176,10 +178,12 @@ namespace AP_project.Game
         public override void Draw(Graphics g)
         {
             // Draw all entities
-            for (int i = 0; i < entities.Count; i++)
-            {
-                if (entities[i].IsActive)
-                    entities[i].Draw(g);
+            lock (entityLock) {
+                for (int i = 0; i < entities.Count; i++)
+                {
+                    if (entities[i].IsActive)
+                        entities[i].Draw(g);
+                }
             }
             
             // Draw HUD

@@ -9,6 +9,7 @@ namespace AP_project.Engine
         protected List<Entity> entities = new List<Entity>();
         protected List<Entity> entitiesToAdd = new List<Entity>();
         private Control renderTarget;
+        protected readonly object entityLock = new object();
 
         public Scene(Control renderTarget)
         {
@@ -27,10 +28,12 @@ namespace AP_project.Engine
 
         public virtual void Update(double deltaTime)
         {
-            for (int i = 0; i < entities.Count; i++)
-            {
-                if (entities[i].IsActive)
-                    entities[i].Update(deltaTime);
+            lock (entityLock) {
+                for (int i = 0; i < entities.Count; i++)
+                {
+                    if (entities[i].IsActive)
+                        entities[i].Update(deltaTime);
+                }
             }
 
             CollisionManager.CheckCollisions(entities);
@@ -52,16 +55,22 @@ namespace AP_project.Engine
 
         public virtual void Draw(Graphics g)
         {
-            for (int i = 0; i < entities.Count; i++)
+            lock (entityLock)
             {
-                if (entities[i].IsActive)
-                    entities[i].Draw(g);
+                for (int i = 0; i < entities.Count; i++)
+                {
+                    if (entities[i].IsActive)
+                        entities[i].Draw(g);
+                }
             }
         }
 
         public void ClearAllEntities()
         {
-            entities.Clear();
+            lock (entityLock)
+            {
+                entities.Clear();
+            }
         }
     }
 }

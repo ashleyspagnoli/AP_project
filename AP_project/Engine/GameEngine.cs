@@ -7,7 +7,7 @@ namespace AP_project.Engine
 {
     public class GameEngine
     {
-        private bool isRunning;
+        private volatile bool isRunning;
         private Thread gameThread;
         private const double TARGET_FPS = 60;
         private const double TIME_PER_FRAME = 1000.0 / TARGET_FPS; // ms
