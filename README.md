@@ -1,11 +1,24 @@
-﻿# Asteroids Game
+﻿# AI-Assisted 2D Game Engine and Asteroid Game in C# WinForms
 
-A classic Asteroids arcade game built with C# and Windows Forms, featuring a custom game engine architecture.
+A classic Asteroids arcade game built with C# and Windows Forms, featuring a custom game engine architecture without timer controls.
 
-## Project Structure
+## Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/ashleyspagnoli/AP_project
+   ```
+
+2. **Open the solution:**
+   In Visual Studio, select "Open a project or solution" and choose `src.sln` in the root folder.
+
+3. **Build and run:**
+   Press `F5` (or click the Start button) to compile and run the application.
+
+## Structure (src folder)
 
 ```
-AP_project/
+src/
 ├── Engine/                   # Game engine components
 │   ├── CollisionManager.cs
 │   ├── Entity.cs
@@ -24,20 +37,6 @@ AP_project/
 └── Program.cs              # Application entry point
 
 ```
-
-## Installation
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/ashleyspagnoli/AP_project
-   cd AP_project
-   ```
-
-2. **Open the solution:**
-   Open the folder in Visual Studio.
-
-3. **Build and run:**
-   Press `F5` in Visual Studio.
 
 ## How to Play
 
