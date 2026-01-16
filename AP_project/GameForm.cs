@@ -18,7 +18,7 @@
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
 
-            // Setup double buffering
+            // Setup double buffering (insurance against flickering, common approach for fast-paced games)
             this.DoubleBuffered = true;
             this.SetStyle(ControlStyles.AllPaintingInWmPaint |
                          ControlStyles.UserPaint |

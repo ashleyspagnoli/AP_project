@@ -21,7 +21,7 @@
             timeAlive += (float)deltaTime;
             if (timeAlive > LIFETIME)
             {
-                IsActive = false;
+                IsActive = false;  // self-destruct
             }
 
             // Remove if off screen
@@ -36,7 +36,7 @@
         {
             if (other is Asteroid)
             {
-                IsActive = false;
+                IsActive = false;  // destroy bullet on collision with asteroid
             }
         }
 

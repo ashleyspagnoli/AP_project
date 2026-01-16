@@ -79,7 +79,6 @@
                 {
                     if (entities[i].IsActive)
                     {
-                        // Ship always updates at normal speed during respawn
                         if (entities[i] is Ship)
                         {
                             entities[i].Update(deltaTime);

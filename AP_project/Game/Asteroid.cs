@@ -45,6 +45,7 @@
             GenerateShape();
         }
 
+        // Each asteroid gets a unique 8-sided polygon with varied edge lengths
         private void GenerateShape()
         {
             int points = 8;
@@ -93,7 +94,7 @@
 
             AsteroidSize newSize = size == AsteroidSize.Large ? AsteroidSize.Medium : AsteroidSize.Small;
 
-            // Create two smaller asteroids
+            // Create two smaller asteroids with random directions and speeds
             for (int i = 0; i < 2; i++)
             {
                 float angle = (float)(random.NextDouble() * Math.PI * 2);
@@ -125,9 +126,9 @@
             g.Restore(state);
         }
 
+        // Factory method to create a random asteroid at a random screen edge
         public static Asteroid CreateRandom(GameScene scene, Rectangle bounds)
         {
-            // Spawn from edges
             Engine.Vector2 position;
             int edge = random.Next(4);
 
@@ -153,7 +154,7 @@
             float dirY = center.Y - position.Y;
             float length = (float)Math.Sqrt(dirX * dirX + dirY * dirY);
 
-            float speed = 30f + (float)random.NextDouble() * 50f;
+            float speed = 20f + (float)random.NextDouble() * 40f;
             Engine.Vector2 velocity = new Engine.Vector2(
                 (dirX / length) * speed,
                 (dirY / length) * speed

@@ -2,6 +2,7 @@
 {
     public static class CollisionManager
     {
+        // Checks every entity against every other entity for collisions
         public static void CheckCollisions(List<Entity> entities)
         {
             for (int i = 0; i < entities.Count; i++)
@@ -20,6 +21,7 @@
             }
         }
 
+        // If distance between centers < sum of radii = collision
         private static bool CheckCircleCollision(Entity a, Entity b)
         {
             float dx = a.Position.X - b.Position.X;

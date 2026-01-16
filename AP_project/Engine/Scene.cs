@@ -1,11 +1,12 @@
 ﻿namespace AP_project.Engine
 {
+    // Manages all game objects (entities) in the current scene
     public class Scene
     {
         protected List<Entity> entities = new List<Entity>();
         protected List<Entity> entitiesToAdd = new List<Entity>();
         private Control renderTarget;
-        protected readonly object entityLock = new object();
+        protected readonly object entityLock = new object(); // prevents race condition between game thread (updating) and UI thread (drawing)
 
         public Scene(Control renderTarget)
         {
@@ -22,6 +23,7 @@
             entity.IsActive = false;
         }
 
+        // Called on every entity to check collisions and update their state
         public virtual void Update(double deltaTime)
         {
             lock (entityLock) {
@@ -37,8 +39,10 @@
             entities.RemoveAll(e => !e.IsActive);
         }
 
+        // Thread-safe way to trigger repaint from game thread
         public void RequestRedraw()
         {
+            // If called from a different thread, marshal the call to the UI thread
             if (renderTarget.InvokeRequired)
             {
                 renderTarget.BeginInvoke(new Action(() => renderTarget.Invalidate()));
@@ -49,6 +53,7 @@
             }
         }
 
+        // Renders all active entities
         public virtual void Draw(Graphics g)
         {
             lock (entityLock)

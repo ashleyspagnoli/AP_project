@@ -1,5 +1,6 @@
 ﻿namespace AP_project.Engine
-{ 
+{
+    // Represents a 2D position or direction
     public struct Vector2
     {
         public float X, Y;

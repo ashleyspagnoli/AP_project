@@ -26,9 +26,9 @@
         {
             float dt = (float)deltaTime;
 
-            // Handle input
             IsThrusting = false;
 
+            // Rotation
             if (Engine.InputManager.Instance.IsKeyDown(Keys.Left))
             {
                 Rotation -= ROTATION_SPEED * dt;
@@ -37,6 +37,8 @@
             {
                 Rotation += ROTATION_SPEED * dt;
             }
+
+            // Thrust
             if (Engine.InputManager.Instance.IsKeyDown(Keys.Up))
             {
                 IsThrusting = true;
@@ -53,7 +55,7 @@
                 fireCooldownTimer = FIRE_COOLDOWN;
             }
 
-            // Apply drag
+            // Apply drag (ship gradually stops)
             Velocity = Velocity * DRAG;
 
             // Limit max speed
